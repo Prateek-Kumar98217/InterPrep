@@ -1,22 +1,21 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import React from "react";
-import Image from "next/image";
-import { dummyInterviews } from "../../../constants";
 import InterviewCard from "@/components/InterviewCard";
-const page = () => {
+import { Button } from "@/components/ui/button";
+import { dummyInterviews } from "@/constants";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function Home() {
   return (
     <>
       <section className="card-cta">
         <div className="flex flex-col gap-6 max-w-lg">
-          <h2>Practise for interviews right in your browser</h2>
-          <p className="text-2xl">
-            Practise on real interview questions, get feedback from AI and
-            improve your skills. InterPrep is the best way to prepare for
-            interviews.
+          <h2>Get Interview-Ready with AI-powered Practice and Feedback</h2>
+          <p>
+            Practice on real interview questions adn analyse your performance
+            with instant feedback
           </p>
           <Button asChild className="btn-primary max-sm:w-full">
-            <Link href="/interview">Start an Interview</Link>
+            <Link href="/interview">Get Started</Link>
           </Button>
         </div>
         <Image
@@ -27,17 +26,17 @@ const page = () => {
           className="max-sm:hidden"
         />
       </section>
-      <section className="flex flex-col gap-6 mt-8 px-4">
+      <section className="flex flex-col gap-6 mt-8">
         <h2>Your Interviews</h2>
-        <div className="interview-section">
+        <div className="interview-section flex flex-row gap-6">
           {dummyInterviews.map((interview) => (
             <InterviewCard {...interview} key={interview.id} />
           ))}
         </div>
       </section>
-      <section className="flex flex-col gap-6 mt-8 px-4">
-        <h2>Take an Interviews</h2>
-        <div className="interview-section">
+      <section className="flex flex-col gap-6 mt-8">
+        <h2>Take an Interview</h2>
+        <div className="interview-section flex flex-row gap-6">
           {dummyInterviews.map((interview) => (
             <InterviewCard {...interview} key={interview.id} />
           ))}
@@ -45,6 +44,4 @@ const page = () => {
       </section>
     </>
   );
-};
-
-export default page;
+}

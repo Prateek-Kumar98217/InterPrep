@@ -10,6 +10,12 @@ import Image from "next/image";
 import Link from "next/link";
 import FormField from "./FormField";
 import { useRouter } from "next/navigation";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "@/firebase/client";
+import { signUp, signIn } from "@/lib/actions/auth.action";
 
 const AuthFormSchema = (type: FormType) => {
   return z.object({
@@ -33,57 +39,98 @@ export function AuthForm({ type }: { type: "sign-in" | "sign-up" }) {
     },
   });
 
-  // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("values", values);
     try {
+      console.log(type === "sign-in");
       if (type === "sign-in") {
+        const { email, password } = values;
+
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        const idToken = await userCredential.user.getIdToken();
+
+        if (!idToken) {
+          toast.error("Sign in failed. Please try again.");
+          return;
+        }
+        const result = await signIn({
+          email,
+          idToken,
+        });
+        console.log("result", result);
+        if (!result?.success) {
+          toast.error(result?.message);
+          return;
+        }
         toast.success("Signed in successfully!");
         router.push("/");
       } else {
+        const { username, email, password } = values;
+
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const result = await signUp({
+          uid: userCredential.user.uid,
+          username: username!,
+          email,
+          password,
+        });
+        if (!result?.success) {
+          toast.error(result?.message);
+          return;
+        }
         toast.success("Account created successfully! Please sign in.");
         router.push("/sign-in");
       }
-      console.log(values);
     } catch (error) {
       console.log(error);
       toast.error("There was and error");
     }
-  }
+  };
 
   const isSignIn = type === "sign-in";
 
   return (
     <div className="card-border lg:min-w-[566px]">
-      <div className="flex flex-col gap-6 py-14 px-10 items-center card">
-        <div className="flex flex-row items-center justify-center space-x-2 mb-4">
-          <Image src="/logo.svg" alt="Logo" width={38} height={32} />
-          <h2>InterPrep</h2>
+      <div className="flex flex-col gap-6 card py-14 px-10">
+        <div className="flex flex-row gap-2 justify-center">
+          <Image src="/logo.svg" alt="logo" height={32} width={38} />
+          <h2 className="text-primary-100">PrepWise</h2>
         </div>
-        <h3>Practise job interviews with AI</h3>
-        {isSignIn ? (
-          <h2 className="text-2xl font-bold">Sign In</h2>
-        ) : (
-          <h2 className="text-2xl font-bold">Sign Up</h2>
-        )}
+
+        <h3>Practice job interviews with AI</h3>
+
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-6 form mt-4 w-full"
+            className="w-full space-y-6 mt-4 form"
           >
             {!isSignIn && (
               <FormField
                 control={form.control}
                 name="username"
-                label="Username"
-                placeholder="Enter your username"
+                label="Name"
+                placeholder="Your Name"
+                type="text"
               />
             )}
+
             <FormField
               control={form.control}
               name="email"
               label="Email"
-              placeholder="Enter your email"
+              placeholder="Your email address"
+              type="email"
             />
+
             <FormField
               control={form.control}
               name="password"
@@ -92,18 +139,19 @@ export function AuthForm({ type }: { type: "sign-in" | "sign-up" }) {
               type="password"
             />
 
-            <Button type="submit" className="btn">
+            <Button className="btn" type="submit">
               {isSignIn ? "Sign In" : "Create an Account"}
             </Button>
           </form>
         </Form>
-        <p>
-          {isSignIn ? "No account yet? " : "Already have an account? "}
+
+        <p className="text-center">
+          {isSignIn ? "No account yet?" : "Have an account already?"}
           <Link
-            href={isSignIn ? "/sign-up" : "/sign-in"}
+            href={!isSignIn ? "/sign-in" : "/sign-up"}
             className="font-bold text-user-primary ml-1"
           >
-            {isSignIn ? "Sign Up" : "Sign In"}
+            {!isSignIn ? "Sign In" : "Sign Up"}
           </Link>
         </p>
       </div>

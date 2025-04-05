@@ -110,8 +110,8 @@ export function AuthForm({ type }: { type: "sign-in" | "sign-up" }) {
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
             className="w-full space-y-6 mt-4 form"
+            onSubmit={form.handleSubmit(onSubmit)}
           >
             {!isSignIn && (
               <FormField

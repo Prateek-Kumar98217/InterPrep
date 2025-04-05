@@ -3,15 +3,14 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/actions/auth.action";
-//todo: create a seprate actions file for below actions
-import { getInterviewsByUserId } from "@/lib/actions/auth.action";
-import { getLatestInterviews } from "@/lib/actions/auth.action";
+import { getInterviewsByUserId } from "@/lib/actions/general.action";
+import { getLatestInterviews } from "@/lib/actions/general.action";
 
 export default async function Home() {
   const user = await getCurrentUser();
   const [userInterviews, latestInterviews] = await Promise.all([
-    getInterviewsByUserId(user?.id),
-    getLatestInterviews({ userId: user?.id }),
+    getInterviewsByUserId(user?.id || ""),
+    getLatestInterviews({ userId: user?.id || "" }),
   ]);
   const hasPastInterviews = userInterviews && userInterviews.length > 0;
   const hasLatestInterviews = latestInterviews && latestInterviews.length > 0;

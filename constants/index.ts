@@ -2,6 +2,7 @@
 import { z } from "zod";
 
 export const mappings = {
+  // Web Development
   "react.js": "react",
   reactjs: "react",
   react: "react",
@@ -95,6 +96,109 @@ export const mappings = {
   netlify: "netlify",
   vercel: "vercel",
   "aws amplify": "amplify",
+
+  // Programming Languages
+  python: "python",
+  java: "java",
+  c: "c",
+  cpp: "cpp",
+  csharp: "csharp",
+  ruby: "ruby",
+  go: "go",
+  kotlin: "kotlin",
+  swift: "swift",
+  rust: "rust",
+  r: "r",
+  perl: "perl",
+  lua: "lua",
+  php: "php",
+  bash: "bash",
+  shell: "bash",
+  assembly: "assembly",
+
+  // Machine Learning and Data Science
+  tensorflow: "tensorflow",
+  pytorch: "pytorch",
+  scikitlearn: "scikit-learn",
+  pandas: "pandas",
+  numpy: "numpy",
+  matplotlib: "matplotlib",
+  seaborn: "seaborn",
+  keras: "keras",
+  opencv: "opencv",
+  hadoop: "hadoop",
+  spark: "spark",
+  "apache spark": "spark",
+  "google colab": "colab",
+  jupyter: "jupyter",
+  "r studio": "rstudio",
+
+  // Databases
+  oracle: "oracle",
+  cassandra: "cassandra",
+
+  // Cloud Computing & DevOps
+  terraform: "terraform",
+  circleci: "circleci",
+  jenkins: "jenkins",
+
+  // Networking & Security
+  wireshark: "wireshark",
+  nmap: "nmap",
+  ipsec: "ipsec",
+  vpn: "vpn",
+  ssh: "ssh",
+  openssl: "openssl",
+  firewall: "firewall",
+
+  // Algorithms and Data Structures
+  dsa: "dsa",
+  "graph theory": "graph_theory",
+  "dynamic programming": "dp",
+  "binary search": "binary_search",
+  "sorting algorithms": "sorting_algorithms",
+  "searching algorithms": "searching_algorithms",
+
+  // Game Development
+  unity: "unity",
+  unreal: "unreal",
+  "godot engine": "godot",
+  pygame: "pygame",
+  cryengine: "cryengine",
+
+  // Blockchain and Cryptography
+  ethereum: "ethereum",
+  "smart contracts": "smart_contracts",
+  solana: "solana",
+  cryptocurrency: "cryptocurrency",
+  bitcoin: "bitcoin",
+  blockchain: "blockchain",
+  hashing: "hashing",
+
+  // Artificial Intelligence
+  "artificial intelligence": "ai",
+  "deep learning": "deep_learning",
+  "reinforcement learning": "reinforcement_learning",
+  "neural networks": "neural_networks",
+  "genetic algorithms": "genetic_algorithms",
+
+  // Mobile Development
+  "android studio": "android_studio",
+  xcode: "xcode",
+  flutter: "flutter",
+  "react native": "react_native",
+  swiftui: "swiftui",
+  ionic: "ionic",
+
+  // Other
+  vhdl: "vhdl",
+  verilog: "verilog",
+  haskell: "haskell",
+  scala: "scala",
+  elixir: "elixir",
+  ocaml: "ocaml",
+  clojure: "clojure",
+  fsharp: "fsharp",
 };
 
 // export const interviewer: CreateAssistantDTO = {

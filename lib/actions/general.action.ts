@@ -114,15 +114,12 @@ export async function getFeedbackByInterviewId(
     .collection("feedback")
     .orderBy("createdAt", "desc")
     .where("interviewId", "==", interviewId)
-    .where("userId", "!=", userId)
-    .limit(1)
+    .where("userId", "==", userId)
     .get();
-
   if (feedback.empty) {
     return null;
   }
   const feedbackDoc = feedback.docs[0];
-
   return {
     id: feedbackDoc.id,
     ...feedbackDoc.data(),
